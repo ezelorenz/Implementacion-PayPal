@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-sm-3">
+            <img src="https://pae-web.presonusmusic.com/uploads/products/media/images/presonus-eris_e35-front_thumbnail.png" width="200" height="150" />
+        </div>
+        <div class="col-sm-9">
+            <h3 class="text-primary">Monitor Estudio Presonus Eris E3.5</h3>
+            <p>
+                Cada monitor de estudio de la serie Eris utiliza un driver de baja frecuencia de tejido compuesto.
+                El tejido y naturaleza del woofer de 3.5 pulgadas del Eris E3.5 ofrece un patrón de dispersión más constante en todo el rango de frecuencias,
+                consiguiendo un audio menos embarrado por el tiempo y un sonido general más limpio.
+            </p>
+            <input type="hidden" value="65.00" id="precio" />
+            <h3 class="text-danger">USD 65.00</h3>
+            <button class="btn btn-success" onclick="pagar()"><i class="fab fa-paypal"></i>Realizar Pago</button>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts{
+    <script>
+
+        function pagar() {
+
+
+            var body = {
+                precio: $("#precio").val(),
+                producto: "Monitor Estudio Presonus Eris E3.5"
+            }
+
+
+
+            jQuery.ajax({
+                url: '@Url.Action("Paypal", "Home")',
+                type: "POST",
+                data: JSON.stringify(body),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    $("div.jumbotron").LoadingOverlay("hide");
+
+                    if (data.status) {
+
+                        var jsonresult = JSON.parse(data.respuesta);
+
+                        console.log(jsonresult);
+
+                        var links = jsonresult.links;
+
+                        var resultado = links.find(item => item.rel === "approve")
+
+                        window.location.href = resultado.href
+
+                        
+                    } else {
+                        alert("Vuelva a intentarlo más tarde")
+                    }
+                },
+                beforeSend: function () {
+                    $("div.jumbotron").LoadingOverlay("show");
+                }
+            });
+   }
+
+    </script>
+
+}

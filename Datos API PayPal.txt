@@ -1,0 +1,81 @@
+		CUENTAS:
+
+Tienda (quien va a recibir los pagos)
+
+https://www.sandbox.paypal.com/ar/home
+
+Email ID:
+sb-vi2pw20076636@business.example.com
+
+System Generated Password:
+8/HwPs<t
+
+
+Cliente (quien va a efectuar el pago)
+
+Email ID:
+sb-wxwjx20066699@personal.example.com
+
+System Generated Password:
+vV4i@C41
+
+		TARJETA GENERADA AUTOMATICAMENTE:
+
+Card Type: Visa
+
+Card Number: 4032037232343513
+
+Expiration Date: 01/2026
+
+CVV: 451
+
+
+		CREDENCIALES:
+
+Client ID
+ARug5-LbmTDkUugmhN1SQPa0tyqATBVkxpGjmWkzGWoFwLVqMbc74KM_15a9Rc67JKYof6WBHOaInRfL
+
+Secret
+EBihOuoTeAgTpxMKa7RXZhd_4v2AssqFAHgOqv4oTvXF4ExpqByLyH4icQ1CdiY7UbFx_3qepqARPqch
+
+
+
+		URL PRUEBAS:
+
+https://api-m.sandbox.paypal.com
+
+
+API para generar solicitud de compra: (POST)
+
+https://api-m.sandbox.paypal.com/v2/checkout/orders
+
+
+
+API para generar la aprobacion de solicitud de compra:
+
+(entre orders y capture, se colocara el token que genere la otra API)
+
+https://api-m.sandbox.paypal.com/v2/checkout/orders/5O190127TN364715T/capture
+
+		JSON PARA SOLICITUD POST:
+{
+  "intent": "CAPTURE",
+  "purchase_units": [
+    {
+      "amount": {
+        "currency_code": "USD",
+        "value": "100.00"
+      },
+      "description":"PRODUCTO DE PRUEBA"
+    }],
+    "application_context":{
+        "brand_name":"MiTienda.com",
+        "landing_page":"NO_REFERENCE",
+        "user_action":"PAY_NOW",
+        "return_url":"",
+        "cancel_url":""
+    }
+}
+
+
+
