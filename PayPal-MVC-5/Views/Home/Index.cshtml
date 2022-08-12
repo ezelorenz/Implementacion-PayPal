@@ -27,14 +27,10 @@
     <script>
 
         function pagar() {
-
-
             var body = {
                 precio: $("#precio").val(),
                 producto: "Monitor Estudio Presonus Eris E3.5"
             }
-
-
 
             jQuery.ajax({
                 url: '@Url.Action("Paypal", "Home")',

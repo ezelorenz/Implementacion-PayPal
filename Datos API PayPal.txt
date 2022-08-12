@@ -58,6 +58,9 @@ API para generar la aprobacion de solicitud de compra:
 https://api-m.sandbox.paypal.com/v2/checkout/orders/5O190127TN364715T/capture
 
 		JSON PARA SOLICITUD POST:
+-Este JSON es el que se copio de la informacion de la API de PayPal.
+
+-El siguiente es un JSON modificado, para que envie lo que nosotros necesitamos.
 {
   "intent": "CAPTURE",
   "purchase_units": [
@@ -76,6 +79,118 @@ https://api-m.sandbox.paypal.com/v2/checkout/orders/5O190127TN364715T/capture
         "cancel_url":""
     }
 }
+
+-Este JSON es el que recibimos cuando generamos el POST con el token recibido de la otra API.
+-Hay que convertir todo a una clase, para poder manipularlo en el Controlador.
+
+	-Se puede hacer con la pagina https://json2csharp.com
+
+{
+    "id": "0WP26411XU7882131",
+    "status": "COMPLETED",
+    "payment_source": {
+        "paypal": {
+            "email_address": "sb-wxwjx20066699@personal.example.com",
+            "account_id": "58QUR84Q5ECMG",
+            "name": {
+                "given_name": "John",
+                "surname": "Doe"
+            },
+            "address": {
+                "country_code": "AR"
+            }
+        }
+    },
+    "purchase_units": [
+        {
+            "reference_id": "default",
+            "shipping": {
+                "name": {
+                    "full_name": "John Doe"
+                },
+                "address": {
+                    "address_line_1": "Free Trade Zone",
+                    "admin_area_2": "Buenos Aires",
+                    "admin_area_1": "Buenos Aires",
+                    "postal_code": "B1675",
+                    "country_code": "AR"
+                }
+            },
+            "payments": {
+                "captures": [
+                    {
+                        "id": "7K182887AG547633F",
+                        "status": "COMPLETED",
+                        "amount": {
+                            "currency_code": "USD",
+                            "value": "65.00"
+                        },
+                        "final_capture": true,
+                        "seller_protection": {
+                            "status": "ELIGIBLE",
+                            "dispute_categories": [
+                                "ITEM_NOT_RECEIVED",
+                                "UNAUTHORIZED_TRANSACTION"
+                            ]
+                        },
+                        "seller_receivable_breakdown": {
+                            "gross_amount": {
+                                "currency_code": "USD",
+                                "value": "65.00"
+                            },
+                            "paypal_fee": {
+                                "currency_code": "USD",
+                                "value": "3.81"
+                            },
+                            "net_amount": {
+                                "currency_code": "USD",
+                                "value": "61.19"
+                            }
+                        },
+                        "links": [
+                            {
+                                "href": "https://api.sandbox.paypal.com/v2/payments/captures/7K182887AG547633F",
+                                "rel": "self",
+                                "method": "GET"
+                            },
+                            {
+                                "href": "https://api.sandbox.paypal.com/v2/payments/captures/7K182887AG547633F/refund",
+                                "rel": "refund",
+                                "method": "POST"
+                            },
+                            {
+                                "href": "https://api.sandbox.paypal.com/v2/checkout/orders/0WP26411XU7882131",
+                                "rel": "up",
+                                "method": "GET"
+                            }
+                        ],
+                        "create_time": "2022-08-12T17:37:47Z",
+                        "update_time": "2022-08-12T17:37:47Z"
+                    }
+                ]
+            }
+        }
+    ],
+    "payer": {
+        "name": {
+            "given_name": "John",
+            "surname": "Doe"
+        },
+        "email_address": "sb-wxwjx20066699@personal.example.com",
+        "payer_id": "58QUR84Q5ECMG",
+        "address": {
+            "country_code": "AR"
+        }
+    },
+    "links": [
+        {
+            "href": "https://api.sandbox.paypal.com/v2/checkout/orders/0WP26411XU7882131",
+            "rel": "self",
+            "method": "GET"
+        }
+    ]
+}
+
 
 
 
