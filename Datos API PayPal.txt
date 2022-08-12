@@ -1,3 +1,4 @@
+		
 		CUENTAS:
 
 Tienda (quien va a recibir los pagos)
